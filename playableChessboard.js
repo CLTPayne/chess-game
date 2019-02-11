@@ -9,7 +9,6 @@
 // size = 8 and change the program so that it works for any size,
 // outputting a grid of the given width and height.
 
-
 // * Setup - make a new file and set the execution permissions.
 
 const convertToNumber = size => parseInt(size, 10);
@@ -20,7 +19,7 @@ const generateEmptyRow = size => new Array(size);
 const chessboard = size => {
   const rows = [];
   for (let i = 0; i < size; i++) {
-    rows.push(generateEmptyRow(size))
+    rows.push(generateEmptyRow(size));
   }
   return rows;
 };
@@ -28,13 +27,15 @@ const chessboard = size => {
 const isEven = number => number % 2 === 0;
 
 const renderRow = (oddRow, evenRow, size) => {
+  const row = [];
   for (let i = 0; i < size; i++) {
     if (isEven(i)) {
-      return evenRow;
+      row.push(evenRow);
     } else {
-      return oddRow;
+      row.push(oddRow);
     }
   }
+  return row;
 };
 
 // 2. Render an empty board.
@@ -47,7 +48,7 @@ const renderEmptyBoard = size => {
       row.fill(renderRow("⬜️", "⬛️", size));
     }
     return row;
-  })
+  });
   return emptyBoard;
   // return emptyBoard.join("\n")
 };

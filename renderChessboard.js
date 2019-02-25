@@ -67,3 +67,19 @@ const isChessBoard = (board) => {
 }
 
 console.log(isChessBoard(currentBoard));
+
+const blackChessPieces = [
+  "♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜",
+  "♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"
+]
+
+const whiteChessPieces = [
+  "♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙",
+  "♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"
+]
+
+const setupChessBoard = (board) => {
+  if (isChessBoard(currentBoard)) {
+
+  }
+}

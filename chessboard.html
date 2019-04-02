@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Board</title>
+    <style>
+      td {
+        padding: 0;
+      }
+      table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import { generateChessBoard, renderToHtml } from "./lib/chessboard.js";
+      const table = renderToHtml(generateChessBoard());
+      document.body.appendChild(table);
+    </script>
+  </body>
+</html>

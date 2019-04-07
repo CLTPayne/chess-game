@@ -1,5 +1,15 @@
 td {
   padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
 }
 
 table {

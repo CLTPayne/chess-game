@@ -2,6 +2,8 @@ td {
   padding: 0;
   width: 20px;
   height: 20px;
+  font-size: 19px;
+  line-height: 20px;
 }
 
 .black {

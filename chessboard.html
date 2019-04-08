@@ -8,9 +8,23 @@
   </head>
   <body>
     <script type="module">
-      import { generateChessBoard, renderToHtml } from "./lib/chessboard.js";
-      const table = renderToHtml(generateChessBoard());
-      document.body.appendChild(table);
+      import { generateChessBoard, renderToHtml, movePiece } from "./lib/chessboard.js";
+      const wrapper = document.createElement('div')
+      document.body.appendChild(wrapper);
+
+      const history = [];
+      const startingBoard = generateChessBoard();
+      history.push(startingBoard);
+      const table = renderToHtml(startingBoard);
+      wrapper.appendChild(table);
+
+      window.movePiece = (startPosition, endPosition) => {
+        const newBoard = movePiece(history[history.length - 1], startPosition, endPosition)
+        history.push(newBoard);
+        wrapper.innerHTML = '';
+        const newTable = renderToHtml(newBoard);
+        wrapper.appendChild(newTable);
+      }
     </script>
   </body>
 </html>

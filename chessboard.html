@@ -21,7 +21,7 @@
       const moveForm = document.createElement('form');
       const moveInput = document.createElement('input');
       moveInput.setAttribute('type', 'text');
-      moveInput.setAttribute('class', 'moveInputField');
+      moveInput.setAttribute('id', 'moveInputField');
       moveInput.setAttribute('value', '');
       const moveSubmit = document.createElement('input');
       moveSubmit.setAttribute('type', 'submit');
@@ -32,13 +32,20 @@
     
       const movePieceViaForm = (event) => {
         event.preventDefault();
-        console.log('Submitted the form');
-        const input = document.getElementsByClassName('moveInputField')[0].value;
-        console.log(input);
-        const coordinates = input.split('');
+
+        const input = document.getElementById('moveInputField').value;
+
+        const coordinates = input.split('').map(Number);
         const startPosition = coordinates.slice(0,2);
         const endPosition = coordinates.slice(2,4);
-        console.log(startPosition, endPosition)
+
+        const newBoard = movePiece(history[history.length - 1], startPosition, endPosition)
+        history.push(newBoard);
+        wrapper.innerHTML = '';
+
+        const newTable = renderToHtml(newBoard);
+        wrapper.appendChild(newTable);
+        wrapper.appendChild(moveForm);
       }
 
       moveForm.addEventListener('submit', movePieceViaForm)

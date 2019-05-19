@@ -18,6 +18,24 @@
       const table = renderToHtml(startingBoard);
       wrapper.appendChild(table);
 
+      const moveForm = document.createElement('form')
+      const moveInput = document.createElement('input')
+      moveInput.setAttribute('type', 'text')
+      const moveSubmit = document.createElement('input')
+      moveSubmit.setAttribute('type', 'submit')
+      moveSubmit.setAttribute('value', 'Submit')
+      moveForm.append(moveInput, moveSubmit)
+
+      wrapper.appendChild(moveForm)
+    
+      const movePieceViaForm = (event) => {
+        event.preventDefault();
+        console.log('Submitted the form')
+      }
+
+      moveForm.addEventListener('submit', movePieceViaForm)
+
+      // move piece via the console by calling this function with two arrays for start and end position:
       window.movePiece = (startPosition, endPosition) => {
         const newBoard = movePiece(history[history.length - 1], startPosition, endPosition)
         history.push(newBoard);

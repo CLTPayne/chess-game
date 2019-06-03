@@ -4,13 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chess Board</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div data-component="wrapper"></div>
+    <div data-component="controls">
+      <form data-component="move-form">
+        <input name="move-selected" type="text" />
+        <input type="submit" value="Submit" />
+      </form>
+      <div class="move-console"></div>
+    </div>
     <script type="module">
-      import { generateChessBoard, renderToHtml, movePiece } from "./lib/chessboard.js";
-      const wrapper = document.createElement('div')
-      document.body.appendChild(wrapper);
+      import {
+        generateChessBoard,
+        renderToHtml,
+        movePiece
+      } from "./lib/chessboard.js";
+      const wrapper = document.querySelector("[data-component=wrapper]");
 
       const history = [];
       const startingBoard = generateChessBoard();
@@ -18,46 +29,60 @@
       const table = renderToHtml(startingBoard);
       wrapper.appendChild(table);
 
-      const moveForm = document.createElement('form');
-      const moveInput = document.createElement('input');
-      moveInput.setAttribute('type', 'text');
-      moveInput.setAttribute('id', 'moveInputField');
-      moveInput.setAttribute('value', '');
-      const moveSubmit = document.createElement('input');
-      moveSubmit.setAttribute('type', 'submit');
-      moveSubmit.setAttribute('value', 'Submit');
-      moveForm.append(moveInput, moveSubmit);
+      const moveForm = document.querySelector("[data-component=move-form]");
+      const moveInput = document.getElementsByName("move-selected")[0];
+      const moveConsole = document.querySelector(".move-console");
 
-      wrapper.appendChild(moveForm);
-    
-      const movePieceViaForm = (event) => {
+      const movePieceViaForm = event => {
         event.preventDefault();
 
-        const input = document.getElementById('moveInputField').value;
+        const coordinates = moveInput.value.split("").map(Number);
+        const startPosition = coordinates.slice(0, 2);
+        const endPosition = coordinates.slice(2, 4);
 
-        const coordinates = input.split('').map(Number);
-        const startPosition = coordinates.slice(0,2);
-        const endPosition = coordinates.slice(2,4);
+        // can't move an empty piece / square // check if there is there is an svg or piece value
+        // input needs to be a number - slight tweak
 
-        const newBoard = movePiece(history[history.length - 1], startPosition, endPosition)
+        if (coordinates.length !== 4) {
+          return (moveConsole.innerHTML += `<div class="error">Error: ${coordinates} is not a valid move. You have too many numbers!</div>`);
+        }
+        if (
+          coordinates.some(coordinate => {
+            return coordinate > 7;
+          })
+        ) {
+          return (moveConsole.innerHTML += `<div class="error">Error: ${coordinates} is not a valid move. You have fallen off the board!</div>`);
+        }
+
+        const newBoard = movePiece(
+          history[history.length - 1],
+          startPosition,
+          endPosition
+        );
         history.push(newBoard);
-        wrapper.innerHTML = '';
-
+        wrapper.innerHTML = "";
+        moveInput.value = "";
         const newTable = renderToHtml(newBoard);
         wrapper.appendChild(newTable);
         wrapper.appendChild(moveForm);
-      }
 
-      moveForm.addEventListener('submit', movePieceViaForm)
+        moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`;
+      };
+
+      moveForm.addEventListener("submit", movePieceViaForm);
 
       // move piece via the console by calling this function with two arrays for start and end position:
       window.movePiece = (startPosition, endPosition) => {
-        const newBoard = movePiece(history[history.length - 1], startPosition, endPosition)
+        const newBoard = movePiece(
+          history[history.length - 1],
+          startPosition,
+          endPosition
+        );
         history.push(newBoard);
-        wrapper.innerHTML = '';
+        wrapper.innerHTML = "";
         const newTable = renderToHtml(newBoard);
         wrapper.appendChild(newTable);
-      }
+      };
     </script>
   </body>
 </html>

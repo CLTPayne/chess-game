@@ -20,7 +20,7 @@
         generateChessBoard,
         renderToHtml,
         movePiece,
-        getPosition
+        validateMove
       } from "./lib/chessboard.js";
       const wrapper = document.querySelector("[data-component=wrapper]");
 
@@ -43,22 +43,10 @@
 
         // can't move an empty piece / square // check if there is there is an svg or piece value
         // input needs to be a number - slight tweak
-
-        const piece = getPosition(history[history.length - 1], startPosition[0], startPosition[1]).piece
-
-        if (!piece) {
-          return (moveConsole.innerHTML += `<div class="error">Error: ${coordinates} is not a valid move. You have not selected a piece!</div>`);
-        }
-
-        if (coordinates.length !== 4) {
-          return (moveConsole.innerHTML += `<div class="error">Error: ${coordinates} is not a valid move. You have too many numbers!</div>`);
-        }
-        if (
-          coordinates.some(coordinate => {
-            return coordinate > 7;
-          })
-        ) {
-          return (moveConsole.innerHTML += `<div class="error">Error: ${coordinates} is not a valid move. You have fallen off the board!</div>`);
+        
+        const invalidMove = validateMove(history[history.length - 1], coordinates)
+        if (invalidMove) {
+          return moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`
         }
 
         const newBoard = movePiece(

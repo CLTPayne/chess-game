@@ -41,12 +41,14 @@
         const startPosition = coordinates.slice(0, 2);
         const endPosition = coordinates.slice(2, 4);
 
-        // DONE - can't move an empty piece / square // check if there is there is an svg or piece value
-        // DONE - input needs to be a number - slight tweak
-        
-        const invalidMove = validateMove(history[history.length - 1], coordinates)
+        // try / catch to try the validation and catch an error object, use the error.message to populate the div
+        // this makes validateMove == assertion func
+        const invalidMove = validateMove(
+          history[history.length - 1],
+          coordinates
+        );
         if (invalidMove) {
-          return moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`
+          return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
         }
 
         const newBoard = movePiece(

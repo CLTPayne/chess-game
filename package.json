@@ -1,0 +1,25 @@
+{
+  "name": "chess-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CLTPayne/pairing-rowan.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CLTPayne/pairing-rowan/issues"
+  },
+  "homepage": "https://github.com/CLTPayne/pairing-rowan#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}

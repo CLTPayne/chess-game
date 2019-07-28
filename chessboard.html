@@ -23,7 +23,7 @@
       renderToHtml,
       movePiece,
       validateMove,
-      _getPosition
+      getPosition
     } from "./lib/chessboard.js";
     import { rookValidMoves } from './lib/rook.js';
 
@@ -58,14 +58,14 @@
         return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
       }
 
-      const currentSquare = _getPosition(currentBoard, startPosition[0], startPosition[1])
+      const currentSquare = getPosition(currentBoard, startPosition[0], startPosition[1])
       const currentPiece = currentSquare.piece
 
-      if (currentPiece.type === 'rook' && !rookValidMoves(currentBoard, currentSquare).includes(_getPosition(currentBoard, endPosition[0], endPosition[1]))) {
+      if (currentPiece.type === 'rook' && !rookValidMoves(currentBoard, currentSquare).includes(getPosition(currentBoard, endPosition[0], endPosition[1]))) {
         return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a rook!</div>`);
       }
 
-      if (currentPiece.type !== 'rook' || rookValidMoves(currentBoard, currentSquare).includes(_getPosition(currentBoard, endPosition[0], endPosition[1]))) {
+      if (currentPiece.type !== 'rook' || rookValidMoves(currentBoard, currentSquare).includes(getPosition(currentBoard, endPosition[0], endPosition[1]))) {
         const newBoard = movePiece(
           currentBoard,
           startPosition,

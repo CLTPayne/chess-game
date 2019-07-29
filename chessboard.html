@@ -34,6 +34,28 @@
       const table = renderToHtml(startingBoard);
       wrapper.appendChild(table);
 
+      // state that knows when a piece has been clicked but gets emptied at the end of the moveViaClick function
+      let startPosition;
+      const moveViaClick = event => {
+        // if there is a start position, reassign the startPosition
+        const startPosition = {
+          row: event.target.closest("td").dataset.row,
+          col: event.target.closest("td").dataset.col,
+          piece: {
+            type: event.target.closest("td").dataset.type,
+            color: event.target.closest("td").dataset.pieceColor
+          },
+          color: event.target.closest("td").dataset.color
+        };
+        console.log(startPosition);
+
+        // if there is a start position, do the highlight logic, get end Position
+        // use all the move functionality
+        // leave the highlight logic till after
+      };
+
+      wrapper.addEventListener("click", moveViaClick);
+
       const moveForm = document.querySelector("[data-component=move-form]");
       const moveInput = document.getElementsByName("move-selected")[0];
       const moveConsole = document.querySelector(".move-console");
@@ -87,7 +109,6 @@
           moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`;
         }
       };
-
       moveForm.addEventListener("submit", movePieceViaForm);
     </script>
   </body>

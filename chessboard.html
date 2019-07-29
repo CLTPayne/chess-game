@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chess Board</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
 
-  <body>
-    <div data-component="wrapper"></div>
-    <div data-component="controls">
-      <form data-component="move-form">
-        <input name="move-selected" type="text" />
-        <input type="submit" value="Submit" />
-      </form>
-      <div class="move-console"></div>
-    </div>
-    <script type="module">
-      import {
-        generateChessBoard,
-        renderToHtml,
-        movePiece,
-        validateMove,
-        getPosition
-      } from "./lib/chessboard.js";
-      import { rookValidMoves } from "./lib/rook.js";
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess Board</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-      const wrapper = document.querySelector("[data-component=wrapper]");
+<body>
+  <div data-component="wrapper"></div>
+  <div data-component="controls">
+    <form data-component="move-form">
+      <input name="move-selected" type="text" />
+      <input type="submit" value="Submit" />
+    </form>
+    <div class="move-console"></div>
+  </div>
+  <script type="module">
+    import {
+      generateChessBoard,
+      renderToHtml,
+      movePiece,
+      validateMove,
+      getPosition
+    } from "./lib/chessboard.js";
+    import { rookValidMoves } from "./lib/rook.js";
 
-      const history = [];
-      const startingBoard = generateChessBoard();
-      history.push(startingBoard);
-      const table = renderToHtml(startingBoard);
-      wrapper.appendChild(table);
+    const wrapper = document.querySelector("[data-component=wrapper]");
 
-      // state that knows when a piece has been clicked but gets emptied at the end of the moveViaClick function
-      let startPosition;
-      const moveViaClick = event => {
-        // if there is a start position, reassign the startPosition
-        const startPosition = {
+    const history = [];
+    const startingBoard = generateChessBoard();
+    history.push(startingBoard);
+    const table = renderToHtml(startingBoard);
+    wrapper.appendChild(table);
+
+    // state that knows when a piece has been clicked but gets emptied at the end of the moveViaClick function
+    let startPosition;
+    let clicks = 0;
+    const moveViaClick = event => {
+      clicks += 1;
+      // if there is a start position, reassign the startPosition
+      if (clicks === 1 && event.target.closest("td").dataset.type) {
+        startPosition = {
           row: event.target.closest("td").dataset.row,
           col: event.target.closest("td").dataset.col,
           piece: {
@@ -47,71 +51,85 @@
           },
           color: event.target.closest("td").dataset.color
         };
-        console.log(startPosition);
+      }
+      if (clicks === 2 && startPosition) {
+        clicks += 1;
+        const endPosition = {
+          row: event.target.closest("td").dataset.row,
+          col: event.target.closest("td").dataset.col,
+          piece: {
+            type: event.target.closest("td").dataset.type,
+            color: event.target.closest("td").dataset.pieceColor
+          },
+          color: event.target.closest("td").dataset.color
+        };
+        console.log({ startPosition, endPosition })
+      }
 
-        // if there is a start position, do the highlight logic, get end Position
-        // use all the move functionality
-        // leave the highlight logic till after
-      };
+      // if there is a start position, do the highlight logic, get end Position
+      // use all the move functionality
+      // leave the highlight logic till after
+    };
 
-      wrapper.addEventListener("click", moveViaClick);
+    wrapper.addEventListener("click", moveViaClick);
 
-      const moveForm = document.querySelector("[data-component=move-form]");
-      const moveInput = document.getElementsByName("move-selected")[0];
-      const moveConsole = document.querySelector(".move-console");
+    const moveForm = document.querySelector("[data-component=move-form]");
+    const moveInput = document.getElementsByName("move-selected")[0];
+    const moveConsole = document.querySelector(".move-console");
 
-      const movePieceViaForm = event => {
-        event.preventDefault();
+    const movePieceViaForm = event => {
+      event.preventDefault();
 
-        const coordinates = moveInput.value.split("").map(Number);
-        console.log(coordinates);
-        const startPosition = coordinates.slice(0, 2);
-        const endPosition = coordinates.slice(2, 4);
-        const currentBoard = history[history.length - 1];
+      const coordinates = moveInput.value.split("").map(Number);
+      console.log(coordinates);
+      const startPosition = coordinates.slice(0, 2);
+      const endPosition = coordinates.slice(2, 4);
+      const currentBoard = history[history.length - 1];
 
-        // try / catch to try the validation and catch an error object, use the error.message to populate the div
-        // this makes validateMove == assertion func
-        const invalidMove = validateMove(currentBoard, coordinates);
-        if (invalidMove) {
-          return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
-        }
+      // try / catch to try the validation and catch an error object, use the error.message to populate the div
+      // this makes validateMove == assertion func
+      const invalidMove = validateMove(currentBoard, coordinates);
+      if (invalidMove) {
+        return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
+      }
 
-        const currentSquare = getPosition(
-          currentBoard,
-          startPosition[0],
-          startPosition[1]
-        );
-        const currentPiece = currentSquare.piece;
+      const currentSquare = getPosition(
+        currentBoard,
+        startPosition[0],
+        startPosition[1]
+      );
+      const currentPiece = currentSquare.piece;
 
-        if (
-          currentPiece.type === "rook" &&
-          !rookValidMoves(currentBoard, currentSquare).includes(
-            getPosition(currentBoard, endPosition[0], endPosition[1])
-          )
-        ) {
-          return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a rook!</div>`);
-        }
+      if (
+        currentPiece.type === "rook" &&
+        !rookValidMoves(currentBoard, currentSquare).includes(
+          getPosition(currentBoard, endPosition[0], endPosition[1])
+        )
+      ) {
+        return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a rook!</div>`);
+      }
 
-        if (
-          currentPiece.type !== "rook" ||
-          rookValidMoves(currentBoard, currentSquare).includes(
-            getPosition(currentBoard, endPosition[0], endPosition[1])
-          )
-        ) {
-          const newBoard = movePiece(currentBoard, startPosition, endPosition);
-          history.push(newBoard);
-          wrapper.innerHTML = "";
-          moveInput.value = "";
-          const newTable = renderToHtml(newBoard);
-          wrapper.appendChild(newTable);
-          wrapper.appendChild(moveForm);
+      if (
+        currentPiece.type !== "rook" ||
+        rookValidMoves(currentBoard, currentSquare).includes(
+          getPosition(currentBoard, endPosition[0], endPosition[1])
+        )
+      ) {
+        const newBoard = movePiece(currentBoard, startPosition, endPosition);
+        history.push(newBoard);
+        wrapper.innerHTML = "";
+        moveInput.value = "";
+        const newTable = renderToHtml(newBoard);
+        wrapper.appendChild(newTable);
+        wrapper.appendChild(moveForm);
 
-          moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`;
-        }
-      };
-      moveForm.addEventListener("submit", movePieceViaForm);
-    </script>
-  </body>
+        moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`;
+      }
+    };
+    moveForm.addEventListener("submit", movePieceViaForm);
+  </script>
+</body>
+
 </html>
 
 <!-- Serve the page with http-server and letting it default to the correct file -->

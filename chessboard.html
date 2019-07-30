@@ -87,10 +87,17 @@
           // use all the move functionality
           // leave the highlight logic till after
 
+          const resetMove = () => {
+            startSquare = {};
+            destinationSquare = {};
+            clicks = 0;
+          };
+
           // try / catch to try the validation and catch an error object, use the error.message to populate the div
           // this makes validateMove == assertion func
           const invalidMove = validateMove(currentBoard, coordinates);
           if (invalidMove) {
+            resetMove();
             return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
           }
           const currentSquare = getPosition(
@@ -106,6 +113,7 @@
               getPosition(currentBoard, endPosition[0], endPosition[1])
             )
           ) {
+            resetMove();
             return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a rook!</div>`);
           }
 
@@ -126,12 +134,9 @@
             const newTable = renderToHtml(newBoard);
             wrapper.appendChild(newTable);
             wrapper.appendChild(moveForm);
-
-            moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`;
+            resetMove();
+            return (moveConsole.innerHTML += `<div class="success">Successful move: [${startPosition}, ${endPosition}]</div>`);
           }
-          startSquare = {};
-          destinationSquare = {};
-          clicks = 0;
         }
       };
 

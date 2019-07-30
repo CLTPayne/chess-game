@@ -100,6 +100,7 @@
             resetMove();
             return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
           }
+
           const currentSquare = getPosition(
             currentBoard,
             startPosition[0],
@@ -107,10 +108,20 @@
           );
           const currentPiece = currentSquare.piece;
 
+          const moves = {
+            rook: rookValidMoves(currentBoard, currentSquare)
+          };
+
+          const destinationPosition = getPosition(
+            currentBoard,
+            endPosition[0],
+            endPosition[1]
+          );
+
           if (
             currentPiece.type === "rook" &&
             !rookValidMoves(currentBoard, currentSquare).includes(
-              getPosition(currentBoard, endPosition[0], endPosition[1])
+              destinationPosition
             )
           ) {
             resetMove();
@@ -119,9 +130,7 @@
 
           if (
             currentPiece.type !== "rook" ||
-            rookValidMoves(currentBoard, currentSquare).includes(
-              getPosition(currentBoard, endPosition[0], endPosition[1])
-            )
+            moves.rook.includes(destinationPosition)
           ) {
             const newBoard = movePiece(
               currentBoard,

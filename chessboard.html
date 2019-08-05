@@ -69,7 +69,6 @@
               color: selectedSquareData.pieceColor
             };
           }
-          console.log({ startSquare, destinationSquare });
 
           // coordinates needs to be an array of values = start row, start col, end row, end col
           const coordinates = [
@@ -78,7 +77,6 @@
             destinationSquare.row,
             destinationSquare.col
           ].map(Number);
-          console.log({ coordinates });
           const startPosition = coordinates.slice(0, 2);
           const endPosition = coordinates.slice(2, 4);
           const currentBoard = history[history.length - 1];
@@ -86,6 +84,23 @@
           // if there is a start position, do the highlight logic, get end Position
           // use all the move functionality
           // leave the highlight logic till after
+
+          const currentSquare = getPosition(
+            currentBoard,
+            startPosition[0],
+            startPosition[1]
+          );
+          const currentPiece = currentSquare.piece;
+
+          const moves = {
+            rook: rookValidMoves(currentBoard, currentSquare)
+          };
+
+          // for (let position in moves.rook) {
+          //   // use moves.rook to add some styling to all the sqaures that match those positions.
+          //   console.log(currentBoard);
+          //   const newTable = renderToHtml(newBoard);
+          // }
 
           const resetMove = () => {
             startSquare = {};
@@ -100,17 +115,6 @@
             resetMove();
             return (moveConsole.innerHTML += `<div class="error">${invalidMove}</div>`);
           }
-
-          const currentSquare = getPosition(
-            currentBoard,
-            startPosition[0],
-            startPosition[1]
-          );
-          const currentPiece = currentSquare.piece;
-
-          const moves = {
-            rook: rookValidMoves(currentBoard, currentSquare)
-          };
 
           const destinationPosition = getPosition(
             currentBoard,

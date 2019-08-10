@@ -37,3 +37,13 @@ table {
 .error {
   color: red;
 }
+
+.black-valid-move {
+  background-color: rgba(255,33,33,.6); 
+  background-blend-mode: multiply;
+}
+
+.white-valid-move {
+  background-color: rgba(255,33,33,.3); 
+  background-blend-mode: multiply;
+}

@@ -27,6 +27,7 @@
       renderPotentialMovesToHtml
     } from "./lib/chessboard.js";
     import { rookValidMoves } from "./lib/rook.js";
+    import { bishopValidMoves } from "./lib/bishop.js";
 
     const wrapper = document.querySelector("[data-component=wrapper]");
 
@@ -68,15 +69,14 @@
       );
 
       const moves = {
-        rook: rookValidMoves(currentBoard, currentSquare)
+        rook: rookValidMoves(currentBoard, currentSquare),
+        bishop: bishopValidMoves(currentBoard, currentSquare)
       };
 
-      // Add rook based highlight logic for possible moves:
-
-      if (currentSquare.piece.type === 'rook') {
+      if (moves[currentSquare.piece.type]) {
         wrapper.innerHTML = "";
         moveInput.value = "";
-        const highlightedTable = renderPotentialMovesToHtml(currentBoard, moves.rook)
+        const highlightedTable = renderPotentialMovesToHtml(currentBoard, moves[currentSquare.piece.type])
         wrapper.appendChild(highlightedTable);
         wrapper.appendChild(moveForm);
       }
@@ -128,9 +128,11 @@
           endPosition[1]
         );
 
+        const currentValidMoves = moves[currentSquare.piece.type]
+        console.log({piece: currentSquare.piece.type, currentValidMoves})
         if (
-          currentPiece.type === "rook" &&
-          !rookValidMoves(currentBoard, currentSquare).includes(
+          currentValidMoves &&
+          !currentValidMoves.includes(
             destinationPosition
           )
         ) {

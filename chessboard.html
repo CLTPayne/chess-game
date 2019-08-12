@@ -39,12 +39,19 @@
 
     // state that knows when a piece has been clicked but gets emptied at the end of the moveViaClick function
     let startSquare;
+    let destinationSquare;
     let clicks = 0;
     const moveViaClick = event => {
       const currentBoard = history[history.length - 1];
 
       clicks += 1;
       const selectedSquareData = event.target.closest("td").dataset;
+
+      const resetMove = () => {
+          startSquare = {};
+          destinationSquare = {};
+          clicks = 0;
+        };
 
       if (clicks === 1 && selectedSquareData.type) {
         startSquare = {
@@ -60,6 +67,10 @@
             color: selectedSquareData.pieceColor
           };
         }
+        else if (selectedSquareData.type === "null") {
+          resetMove()
+          return (moveConsole.innerHTML += `<div class="success">Please select an actual piece</div>`);
+        }
       }
 
       const currentSquare = getPosition(
@@ -69,21 +80,22 @@
       );
 
       const moves = {
-        rook: rookValidMoves(currentBoard, currentSquare),
-        bishop: bishopValidMoves(currentBoard, currentSquare)
+        rook: rookValidMoves,
+        bishop: bishopValidMoves
       };
 
-      if (moves[currentSquare.piece.type]) {
+      const currentValidMoves = moves[currentSquare.piece.type] && moves[currentSquare.piece.type](currentBoard, currentSquare)
+      if (currentValidMoves) {
         wrapper.innerHTML = "";
         moveInput.value = "";
-        const highlightedTable = renderPotentialMovesToHtml(currentBoard, moves[currentSquare.piece.type])
+        const highlightedTable = renderPotentialMovesToHtml(currentBoard, currentValidMoves)
         wrapper.appendChild(highlightedTable);
         wrapper.appendChild(moveForm);
       }
 
       if (clicks === 2 && startSquare) {
         clicks += 1;
-        let destinationSquare = {
+        destinationSquare = {
           row: selectedSquareData.row,
           col: selectedSquareData.col,
           piece: null,
@@ -108,12 +120,6 @@
         const endPosition = coordinates.slice(2, 4);
         const currentPiece = currentSquare.piece;
 
-        const resetMove = () => {
-          startSquare = {};
-          destinationSquare = {};
-          clicks = 0;
-        };
-
         // try / catch to try the validation and catch an error object, use the error.message to populate the div
         // this makes validateMove == assertion func
         const invalidMove = validateMove(currentBoard, coordinates);
@@ -128,8 +134,6 @@
           endPosition[1]
         );
 
-        const currentValidMoves = moves[currentSquare.piece.type]
-        console.log({piece: currentSquare.piece.type, currentValidMoves})
         if (
           currentValidMoves &&
           !currentValidMoves.includes(
@@ -141,8 +145,8 @@
         }
 
         if (
-          currentPiece.type !== "rook" ||
-          moves.rook.includes(destinationPosition)
+          !currentValidMoves ||
+          currentValidMoves.includes(destinationPosition)
         ) {
           const newBoard = movePiece(
             currentBoard,

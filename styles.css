@@ -1,14 +1,16 @@
 td {
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 25px;
 }
 
+/* override default display inline */
 img {
-  width: 20px;
+  height: 25px;
   filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
+  display: block; 
 }
 
 .black {

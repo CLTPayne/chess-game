@@ -1,8 +1,13 @@
 import { getPosition } from "./chessboard";
 
 export const queenValidMoves = (currentBoard, currentPosition) => {
+
+    // generic vars
     let { row, col } = currentPosition;
     const playerColor = getPosition(currentBoard, row, col).piece.color;
+    const validMoves = [];
+
+    // diagonal moves from bishop:
     const topLeftPotentialSquares = [];
     const topRightPotentialSquares = [];
     const bottomLeftPotentialSquares = [];
@@ -17,14 +22,57 @@ export const queenValidMoves = (currentBoard, currentPosition) => {
         const bottomRight = currentBoard.find(element => element.row === row + i && element.col === col + i)
         bottomRightPotentialSquares.push(bottomRight)
     }
+
+    // vertical and horizontal moves from rook 
+    const allPotentialSquares = currentBoard
+        .map(element => {
+            if (element.row === row || element.col === col) {
+                return element;
+            }
+        })
+        .filter(element => Boolean(element));
+    const squaresAbove = allPotentialSquares.filter(element => {
+        if (element.row < row) {
+            return element;
+        }
+    });
+    const squaresLeft = allPotentialSquares.filter(element => {
+        if (element.row === row && element.col < col) {
+            return element;
+        }
+    });
+    const squaresRight = allPotentialSquares.filter(element => {
+        if (element.row === row && element.col > col) {
+            return element;
+        }
+    });
+    const squaresBelow = allPotentialSquares.filter(element => {
+        if (element.row > row) {
+            return element;
+        }
+    });
+    // removed the square the current piece is occupying
+    // order all arrays from current piece outwards
+
+    //  
+    // OR Do this in one step for both diagonal and non diagonal so can maintain the clockwise logic?
+    //
     const allPotentialDiagonals = [
         topLeftPotentialSquares,
         topRightPotentialSquares,
         bottomRightPotentialSquares,
         bottomLeftPotentialSquares
     ]
-    const validMoves = [];
-    allPotentialDiagonals.forEach(subArray => {
+
+    const allPotentialNonDiagonals = [
+        squaresAbove.reverse(),
+        squaresBelow,
+        squaresLeft.reverse(),
+        squaresRight
+    ];
+
+    // generic formation of single array with all possible moves
+    [...allPotentialNonDiagonals, ...allPotentialDiagonals].forEach(subArray => {
         const filtered = subArray.filter(element => Boolean(element));
         for (const element of filtered) {
             if (element.piece === null) {
@@ -42,5 +90,6 @@ export const queenValidMoves = (currentBoard, currentPosition) => {
             }
         }
     });
+
     return validMoves;
 }

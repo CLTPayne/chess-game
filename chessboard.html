@@ -143,7 +143,7 @@
           )
         ) {
           resetMove();
-          return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a rook!</div>`);
+          return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a ${currentSquare.piece.type}!</div>`);
         }
 
         if (

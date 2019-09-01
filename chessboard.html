@@ -28,6 +28,7 @@
     } from "./lib/chessboard.js";
     import { rookValidMoves } from "./lib/rook.js";
     import { bishopValidMoves } from "./lib/bishop.js";
+    import { queenValidMoves } from "./lib/queen.js";
 
     const wrapper = document.querySelector("[data-component=wrapper]");
 
@@ -48,10 +49,10 @@
       const selectedSquareData = event.target.closest("td").dataset;
 
       const resetMove = () => {
-          startSquare = {};
-          destinationSquare = {};
-          clicks = 0;
-        };
+        startSquare = {};
+        destinationSquare = {};
+        clicks = 0;
+      };
 
       if (clicks === 1 && selectedSquareData.type) {
         startSquare = {
@@ -81,7 +82,8 @@
 
       const moves = {
         rook: rookValidMoves,
-        bishop: bishopValidMoves
+        bishop: bishopValidMoves,
+        queen: queenValidMoves
       };
 
       const currentValidMoves = moves[currentSquare.piece.type] && moves[currentSquare.piece.type](currentBoard, currentSquare)

@@ -24,6 +24,7 @@
       movePiece,
       validateMove,
       getPosition,
+      moves,
       renderPotentialMovesToHtml
     } from "./lib/chessboard.js";
     import { rookValidMoves } from "./lib/rook.js";
@@ -79,12 +80,6 @@
         Number(startSquare.row),
         Number(startSquare.col),
       );
-
-      const moves = {
-        rook: rookValidMoves,
-        bishop: bishopValidMoves,
-        queen: queenValidMoves
-      };
 
       const currentValidMoves = moves[currentSquare.piece.type] && moves[currentSquare.piece.type](currentBoard, currentSquare)
       if (currentValidMoves) {

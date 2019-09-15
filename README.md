@@ -1,6 +1,6 @@
 ## Next Steps:
 
-* Valid moves per piece
+* Valid moves per piece - `pawnValidMoves`
 * Chess move notation - coordinates instead of just row / col numbers. This abstracts away the rows and cols / 
 * Zero indexing this would be a-h is cols / 8-1 rows
 * Interim interactive version in pure js
@@ -16,8 +16,6 @@
 * Include rook logic for 'castling' - the rook also participates, with the king, in a special move called castling.
 
 ### Latest Ideas:
-
-* UI hightlight which square has been selected by first click with a colour
 
 * Solve the immutable / mutable debate:
   1. Could only store the position that hold a piece then re-render these over the table each time something changes

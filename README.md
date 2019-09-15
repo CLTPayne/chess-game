@@ -4,6 +4,7 @@
 
 * Fix issue with valid king moves - currently if a king takes a piece it can end up in check
     - needs to check that it's not a potential check after it takes a piece, as then more opponent moves would be valid than they were before the piece was taken. 
+    - it now checks that occupied squares that could be taken would be in check but, it also then marks the squares that are still blocked by the occupied square as falsely being in check. 
 
 * Chess move notation - coordinates instead of just row / col numbers. This abstracts away the rows and cols / 
 * Zero indexing this would be a-h is cols / 8-1 rows

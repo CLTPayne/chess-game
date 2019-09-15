@@ -1,6 +1,10 @@
 ## Next Steps:
 
 * Valid moves per piece - `pawnValidMoves`
+
+* Fix issue with valid king moves - currently if a king takes a piece it can end up in check
+    - needs to check that it's not a potential check after it takes a piece, as then more opponent moves would be valid than they were before the piece was taken. 
+
 * Chess move notation - coordinates instead of just row / col numbers. This abstracts away the rows and cols / 
 * Zero indexing this would be a-h is cols / 8-1 rows
 * Interim interactive version in pure js

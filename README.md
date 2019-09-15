@@ -17,7 +17,6 @@
 
 ### Latest Ideas:
 
-* Moves per piece for the king
 * UI hightlight which square has been selected by first click with a colour
 
 * Solve the immutable / mutable debate:

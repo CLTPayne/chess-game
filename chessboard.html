@@ -85,7 +85,7 @@
       if (currentValidMoves) {
         wrapper.innerHTML = "";
         moveInput.value = "";
-        const highlightedTable = renderPotentialMovesToHtml(currentBoard, currentValidMoves)
+        const highlightedTable = renderPotentialMovesToHtml(currentBoard, currentValidMoves, currentSquare)
         wrapper.appendChild(highlightedTable);
         wrapper.appendChild(moveForm);
       }

@@ -47,3 +47,11 @@ table {
 .white-valid-move {
   background-color: rgba(255,33,33,.3); 
 }
+
+.black-piece-to-move {
+  background-color: rgba(133, 199, 126, 0.6); 
+}
+
+.white-piece-to-move {
+  background-color: rgba(133, 199, 126, 0.6);  
+}

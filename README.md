@@ -3,6 +3,9 @@
 -   Valid moves per piece - `pawnValidMoves`
 -   Valid en passant capture by a pawn, on the move follow the opponent pawn's double-move
 
+-   Promotion for a pawn when reaches all the way to back line
+-   UI for player to choose what they want to promote the pawn to
+
 -   Chess move notation - coordinates instead of just row / col numbers. This abstracts away the rows and cols /
 -   Zero indexing this would be a-h is cols / 8-1 rows
 -   Interim interactive version in pure js

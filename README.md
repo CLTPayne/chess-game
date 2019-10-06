@@ -2,6 +2,7 @@
 
 -   Valid moves per piece - `pawnValidMoves`
 -   Valid en passant capture by a pawn, on the move follow the opponent pawn's double-move
+-   Issue where valid king moves are showing as being in check from a pawn move rather than a pawn capture.
 
 -   Promotion for a pawn when reaches all the way to back line
 -   UI for player to choose what they want to promote the pawn to

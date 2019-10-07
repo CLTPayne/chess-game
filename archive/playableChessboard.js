@@ -11,51 +11,51 @@
 
 // * Setup - make a new file and set the execution permissions.
 
-const convertToNumber = size => parseInt(size, 10);
+const convertToNumber = size => parseInt(size, 10)
 
 // 1. Create a row that is just an array of positions.
-const generateEmptyRow = size => new Array(size);
+const generateEmptyRow = size => new Array(size)
 
 const chessboard = size => {
-  const rows = [];
-  for (let i = 0; i < size; i++) {
-    rows.push(generateEmptyRow(size));
-  }
-  return rows;
-};
+	const rows = []
+	for (let i = 0; i < size; i++) {
+		rows.push(generateEmptyRow(size))
+	}
+	return rows
+}
 
-const isEven = number => number % 2 === 0;
+const isEven = number => number % 2 === 0
 
 const renderRow = (oddRow, evenRow, size) => {
-  const row = [];
-  for (let i = 0; i < size; i++) {
-    if (isEven(i)) {
-      row.push(evenRow);
-    } else {
-      row.push(oddRow);
-    }
-  }
-  return row;
-};
+	const row = []
+	for (let i = 0; i < size; i++) {
+		if (isEven(i)) {
+			row.push(evenRow)
+		} else {
+			row.push(oddRow)
+		}
+	}
+	return row
+}
 
 // 2. Render an empty board.
 const renderEmptyBoard = size => {
-  const board = chessboard(size);
-  const emptyBoard = board.map((row, index) => {
-    if (index % 2 === 0) {
-      row.fill(renderRow("⬛️", "⬜️", size));
-    } else {
-      row.fill(renderRow("⬜️", "⬛️", size));
-    }
-    return row;
-  });
-  return emptyBoard;
-  // return emptyBoard.join("\n")
-};
+	const board = chessboard(size)
+	const emptyBoard = board.map((row, index) => {
+		if (index % 2 === 0) {
+			row.fill(renderRow("⬛️", "⬜️", size))
+		} else {
+			row.fill(renderRow("⬜️", "⬛️", size))
+		}
+		return row
+	})
+	return emptyBoard
+	// return emptyBoard.join("\n")
+}
 
 // 3. some form of move() that takes a player and a position as parameters.
 
-console.log(renderEmptyBoard(convertToNumber(process.argv[2])));
+console.log(renderEmptyBoard(convertToNumber(process.argv[2])))
 
 // Next steps:
 // 2. How to make the board playable:

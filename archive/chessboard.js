@@ -10,39 +10,39 @@
 // outputting a grid of the given width and height.
 
 // 1. Extracted parseInt base 10 function:
-const convertToNumber = size => parseInt(size, 10);
+const convertToNumber = size => parseInt(size, 10)
 
 // 4. Extracted modulo check for odd / even number to be more declarative?
-const isEven = number => number % 2 === 0;
+const isEven = number => number % 2 === 0
 
 const generateRow = (oddRow, evenRow, size) => {
-  const row = [];
-  for (let i = 0; i < size; i++) {
-    if (isEven(i)) {
-      row.push(evenRow);
-    } else {
-      row.push(oddRow);
-    }
-  }
-  // 3. Moved .join() inside generate row.
-  return row.join("");
-};
+	const row = []
+	for (let i = 0; i < size; i++) {
+		if (isEven(i)) {
+			row.push(evenRow)
+		} else {
+			row.push(oddRow)
+		}
+	}
+	// 3. Moved .join() inside generate row.
+	return row.join("")
+}
 
 const chessboard = size => {
-  const rows = [];
-  for (let i = 0; i < size; i++) {
-    if (isEven(i)) {
-      rows.push(generateRow("⬛️", "⬜️", size));
-    } else {
-      rows.push(generateRow("⬜️", "⬛️", size));
-    }
-  }
-  return rows.join("\n");
-};
+	const rows = []
+	for (let i = 0; i < size; i++) {
+		if (isEven(i)) {
+			rows.push(generateRow("⬛️", "⬜️", size))
+		} else {
+			rows.push(generateRow("⬜️", "⬛️", size))
+		}
+	}
+	return rows.join("\n")
+}
 
 // 2. Moved parseInt functionality into function call
 // Something has made the output slower? Is this just the machine? Or the extraction?
-console.log(chessboard(convertToNumber(process.argv[2])));
+console.log(chessboard(convertToNumber(process.argv[2])))
 
 // Next steps:
 // 1. Less repetition between the functions, extract parseInt, could even do it in the function call.

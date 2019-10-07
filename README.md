@@ -6,6 +6,7 @@
 
 -   Promotion for a pawn when reaches all the way to back line
 -   UI for player to choose what they want to promote the pawn to
+-   Need to keep track of all the pieces that are being taken
 
 -   Chess move notation - coordinates instead of just row / col numbers. This abstracts away the rows and cols /
 -   Zero indexing this would be a-h is cols / 8-1 rows
@@ -26,3 +27,16 @@
        Also need a map of all the table cells with their current corresponding position.
        The td would always remain on the screen
     Caveat - the UI would never be immutable. (E.g. react just diffs the DOM and shadow DOM)
+
+
+### Refactoring
+-  Could be a series of rules that compose a kingValidMoves() e.g. allDiagonalMoves(Infinity) allowJumping
+
+### Cyclomatic Complexity 
+-  Benchmark current complexity using Eslint Rules
+
+### GitHub Pages
+-  use https://jekyllrb.com/ 
+-  change chessboard.html to index.html
+-  can point the DNS to a personal domain
+-  remame the repo to chess game

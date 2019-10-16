@@ -33,7 +33,14 @@
 
 ### Cyclomatic Complexity
 
+#### Exploring:
+
 -   Benchmark current complexity using Eslint Rules
+-   Benchmark current complexity using Lizard
+-   Complexity analysis can be one dimensional.
+-   Correlating complexity with other variables usually reveals a much more useful insight.
+    -   For example, plotting cyclomatic complexity vs time will display the dynamics of the code as the engineers refactor some parts or rewrite other stuff.
+    -   Mapping complexity with different modules may give some hints as to which modules still need more TLC.
 
 ### GitHub Pages
 

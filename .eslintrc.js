@@ -21,5 +21,13 @@ module.exports = {
 		complexity: ["error", 5],
 		"max-depth": ["warn", 4],
 		"max-statements": ["warn", 10]
-	}
+	},
+	overrides: [
+		{
+			files: ["babel.config.js", "jest.config.js"],
+			rules: {
+				"no-undef": "off"
+			}
+		}
+	]
 };

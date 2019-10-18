@@ -33,14 +33,30 @@
 
 ### Cyclomatic Complexity
 
-#### Exploring:
+#### Project Goals:
+
+Understand the value of testing for 'complexity' in code. On first hearing about the mathmatical notion of [cyclmatic complextity](https://en.wikipedia.org/wiki/Cyclomatic_complexity) I immediately wondered how useful it would be - checking of linearly independent paths through a program did not feel full proof. Yes, I felt that deeply nested if/else blocks were not a good thing but could this not be avoided by modularising your code very heavily? Or subject to your coding paradigm of choice (object orientated vs functional programming). I.e. wouldn't lots of classes, using inheritance fail to trigger a high complexity score, despite a developer needing to navigate and retain lots of different chunks of logic in order to understand 'what does this code do'.
+
+For me complexity is 'how quickly can I understand this code'? But that's qualitative...
+
+#### Investigation:
 
 -   Benchmark current complexity using Eslint Rules
 -   Benchmark current complexity using Lizard
+-   What is valuable about measuring 'complexity' AKA linearly independent paths through code.
 -   Complexity analysis can be one dimensional.
 -   Correlating complexity with other variables usually reveals a much more useful insight.
     -   For example, plotting cyclomatic complexity vs time will display the dynamics of the code as the engineers refactor some parts or rewrite other stuff.
     -   Mapping complexity with different modules may give some hints as to which modules still need more TLC.
+
+First measure (19 October 2019):
+![First Eslint Complexity Output](./images/Chess-Code-Complexity-19-Oct-19.png)
+
+Most Complected Logic:
+
+1. `kingValidMoves` - 34 statements // 11 linearly independent paths
+2. `queenValidMoves` - 25 statements // 7 linearly independent paths
+3. `bishopValidMoves` - 19 statements // 7 linearly independent paths
 
 ### GitHub Pages
 

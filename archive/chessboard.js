@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 
 // Write a program that creates a string that represents an 8×8 grid,
 // using newline characters to separate lines.At each position of the grid
@@ -10,39 +11,39 @@
 // outputting a grid of the given width and height.
 
 // 1. Extracted parseInt base 10 function:
-const convertToNumber = size => parseInt(size, 10)
+const convertToNumber = size => parseInt(size, 10);
 
 // 4. Extracted modulo check for odd / even number to be more declarative?
-const isEven = number => number % 2 === 0
+const isEven = number => number % 2 === 0;
 
 const generateRow = (oddRow, evenRow, size) => {
-	const row = []
+	const row = [];
 	for (let i = 0; i < size; i++) {
 		if (isEven(i)) {
-			row.push(evenRow)
+			row.push(evenRow);
 		} else {
-			row.push(oddRow)
+			row.push(oddRow);
 		}
 	}
 	// 3. Moved .join() inside generate row.
-	return row.join("")
-}
+	return row.join("");
+};
 
 const chessboard = size => {
-	const rows = []
+	const rows = [];
 	for (let i = 0; i < size; i++) {
 		if (isEven(i)) {
-			rows.push(generateRow("⬛️", "⬜️", size))
+			rows.push(generateRow("⬛️", "⬜️", size));
 		} else {
-			rows.push(generateRow("⬜️", "⬛️", size))
+			rows.push(generateRow("⬜️", "⬛️", size));
 		}
 	}
-	return rows.join("\n")
-}
+	return rows.join("\n");
+};
 
 // 2. Moved parseInt functionality into function call
 // Something has made the output slower? Is this just the machine? Or the extraction?
-console.log(chessboard(convertToNumber(process.argv[2])))
+console.log(chessboard(convertToNumber(process.argv[2])));
 
 // Next steps:
 // 1. Less repetition between the functions, extract parseInt, could even do it in the function call.

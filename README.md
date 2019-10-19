@@ -29,7 +29,7 @@
 
 ### Refactoring
 
--   Could be a series of rules that compose a kingValidMoves() e.g. allDiagonalMoves(Infinity) allowJumping
+-   Could be a series of rules that compose a kingValidMoves() e.g. allDiagonalMoves(Infinity) allowJumping(). You could read the instructions for what a king can and can't do in this chain of declarative functions. The finer logic would be abstracted away.
 
 ### Cyclomatic Complexity
 
@@ -57,6 +57,13 @@ Most Complected Logic:
 1. `kingValidMoves` - 34 statements // 11 linearly independent paths
 2. `queenValidMoves` - 25 statements // 7 linearly independent paths
 3. `bishopValidMoves` - 19 statements // 7 linearly independent paths
+
+Refactor #1:
+
+-   Reduce verbose repetative statements in `kingValidMoves`
+-   Look for the same logic being repeated with small variation - extract this into another function.
+-   Identify helper functions that could be relevant to other valid moves functions
+-   What is causing so many linearly independent paths? Could this be reduced?
 
 ### GitHub Pages
 

@@ -50,11 +50,11 @@ For me complexity is 'how quickly can I understand this code'? But that's qualit
     -   Mapping complexity with different modules may give some hints as to which modules still need more TLC.
 
 First measure (19 October 2019):
-![First Eslint Complexity Output](./images/Chess-Code-Complexity-19-Oct-19.png)
+![First Eslint Complexity Output](./images/Starting-Complexity.png)
 
 Most Complected Logic:
 
-1. `kingValidMoves` - 34 statements // 11 linearly independent paths
+1. `kingValidMoves` - 36 statements // 11 linearly independent paths // 7 linearly indepmendent paths
 2. `queenValidMoves` - 25 statements // 7 linearly independent paths
 3. `bishopValidMoves` - 19 statements // 7 linearly independent paths
 

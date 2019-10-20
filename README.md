@@ -65,6 +65,16 @@ Refactor #1:
 -   Identify helper functions that could be relevant to other valid moves functions
 -   What is causing so many linearly independent paths? Could this be reduced?
 
+Questions:
+
+-   Is there anything wrong with this many linearly independent paths objectively a problem?
+    -   In the [Eslint](https://github.com/eslint/eslint/issues/4808) discussion of this complexity rule they note that the "highest we have within ESLint code is 36, but there are only 6 above 20. Maybe 20 is a good number?"
+    -   What is a sensible limit?
+    -   "Regardless of the exact limit, if cyclomatic complexity exceeds 20, you should consider it alarming."
+    -   20 === really badly designed code
+    -   10 === upper bound of what is sensible - ["In the 2nd edition of Steve McConnell's Code Complete he recommends that a cyclomatic complexity from 0 to 5 is typically fine, but you should be aware if the complexity starts to get in the 6 to 10 range. He further explains that anything over a complexity of 10 you should strongly consider refactoring your code."](https://elijahmanor.com/control-the-complexity-of-your-javascript-functions-with-jshint/)
+-   What other factors indicate that code is hard to maintain - number of params, depth, number of statements.
+
 ### GitHub Pages
 
 -   use https://jekyllrb.com/

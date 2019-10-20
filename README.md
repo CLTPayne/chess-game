@@ -64,6 +64,8 @@ Refactor #1:
 -   Look for the same logic being repeated with small variation - extract this into another function.
 -   Identify helper functions that could be relevant to other valid moves functions
 -   What is causing so many linearly independent paths? Could this be reduced?
+-   Results by commit https://github.com/CLTPayne/pairing-rowan/commit/c8957389b7b419068784449f95c143553e01d1ff:
+    -   `kingValidMoves` - 21 statements // 6 linearly independent paths
 
 Questions:
 

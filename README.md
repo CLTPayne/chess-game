@@ -97,6 +97,11 @@ Refactor #2:
 -   Goal of refactor is the most readable, declarative code.
 -   You shouldn't need to know how to play chess in order to understand the code / rules for each piece
 
+Second measure (2nd Nobember 2019):
+![Second Eslint Complexity Output](./images/Post-Refactor-2-Complexity.png)
+
+_Results_ - Quite a lot of complexity has been shifted to the `moveHelpers.js`. Completely removed Queen and Rook from the list of complexity issues thanks to the `getPotentialHorizontalOrVerticalMoves` abstraction however this obscures the fact that the shared `validateMoves` and `getPotentialDiagonalMoves` logic is still triggering an complexity error. As these pieces don't have additional complexity like check they are now Checkout commit 8de6b6a656325815830882d2acd4f2a93283ac4b to compare. This again highlights the issue with these complexity measures - it's shifting the complexity but not removing it altogether.
+
 ### GitHub Pages
 
 -   GitHub pages use https://jekyllrb.com/ under the hoood.

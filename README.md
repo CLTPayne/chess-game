@@ -106,6 +106,63 @@ Refactor #3:
 
 - Idea for making the old school javascript for loops more explicit? label them? https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/label
 
+Update Gameplay:
+DataStructure Refactor for special rules:
+
+Move:
+
+```{
+				col: 5,
+				color: "black",
+				piece: {
+					color: "black",
+					type: "pawn",
+                         hasMoved: boolean,
+				},
+				row: 4
+			}
+```
+
+```
+const game = {
+     board: [], // same as existing board structure
+     capturedPieces: [], // adding a copy of the object before it gets deleted from the board
+     history: [{
+                    startSquare: {col: 1, row: 1}
+                    endSquare:  {col: 2, row: 1}
+                    pieceThatMoved: {
+                         color: "black",
+                         type: "pawn",
+                    },
+                    pieceCaptured: {
+
+                    }
+               }]
+     },
+}
+```
+
+File === column on chessboard
+
+Approach:
+
+1. Update movePiece() to save the hasMoved property in board
+2. Implement castling logic:
+
+Castling:
+
+1. Check that King hasn't moved
+2. Check that neither of the rooks has moved
+   if on of the is still in start position continue
+3. Check that the squares between the king and any not moved rook are empty
+4. Check the empty squares AND the king's current position are not in check
+5. If all fine, king moves two squares towards the rook across the row.
+
+En Passant:
+
+1. Create Game object
+2. movePiece is responsible calling what ever function
+
 ### GitHub Pages
 
 - GitHub pages use https://jekyllrb.com/ under the hoood.

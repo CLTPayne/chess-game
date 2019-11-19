@@ -158,6 +158,34 @@ Castling:
 4. Check the empty squares AND the king's current position are not in check
 5. If all fine, king moves two squares towards the rook across the row.
 
+Notes from implementation:
+
+1. Had been incorrect in thinking a piece is not the same object reference being passed around.
+
+```
+export const movePiece = (board, startCoordinate, endCoordinate) => {
+	const newBoard = cloneBoard(board);
+	const startPosition = getPosition(
+		newBoard,
+		startCoordinate[0],
+		startCoordinate[1]
+	);
+	const endPosition = getPosition(
+		newBoard,
+		endCoordinate[0],
+		endCoordinate[1]
+	);
+	console.log({ startPosition: startPosition.piece });
+	endPosition.piece = startPosition.piece;
+	endPosition.piece.hasMoved = true;
+	startPosition.piece = null;
+	console.log({ endPosition: endPosition.piece });
+	return newBoard;
+};
+```
+
+With the above two `console.log`s the output was alwasy that `startPosition.piece.hasMoved` was set to `true` because the `endPosition.piece` is assigned as a reference to the same piece object. Therefore updating `endPosition.piece` updates the object that both `startPosition` and `endPosition` refer to.
+
 En Passant:
 
 1. Create Game object

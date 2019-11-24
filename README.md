@@ -107,7 +107,7 @@ Refactor #3:
 -   Idea for making the old school javascript for loops more explicit? label them? https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/label
 
 Update Gameplay:
-DataStructure Refactor for special rules:
+Data structure Refactor for special rules:
 
 Move:
 
@@ -157,6 +157,7 @@ Castling:
 3. Check that the squares between the king and any not moved rook are empty
 4. Check the empty squares AND the king's current position are not in check
 5. If all fine, king moves two squares towards the rook across the row.
+6. And the rook then moves into the square the king 'jumped over'
 
 Notes from implementation:
 

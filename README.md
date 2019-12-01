@@ -117,7 +117,7 @@ Move:
 				piece: {
 					color: "black",
 					type: "pawn",
-                         hasMoved: boolean,
+                    hasMoved: boolean,
 				},
 				row: 4
 			}
@@ -151,9 +151,9 @@ Approach:
 
 Castling:
 
-1. Check that King hasn't moved
+1. Check that King hasn't moved - done
 2. Check that neither of the rooks has moved
-   if on of the is still in start position continue
+   if one of them is still in start position continue - done
 3. Check that the squares between the king and any not moved rook are empty
 4. Check the empty squares AND the king's current position are not in check
 5. If all fine, king moves two squares towards the rook across the row.

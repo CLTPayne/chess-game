@@ -146,6 +146,9 @@
 						return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a ${currentSquare.piece.type}!</div>`);
 					}
 
+					// IF the start piece is a king and the destination piece is 2 squares away from the king, 
+					// then do the castle move (two steps)
+
 					if (
 						!currentValidMoves ||
 						currentValidMoves.includes(destinationPosition)

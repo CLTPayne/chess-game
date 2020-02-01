@@ -54,11 +54,12 @@
 
 				if (clicks === 1 && selectedSquareData.type) {
 					startSquare = {
-						row: selectedSquareData.row,
-						col: selectedSquareData.col,
+						row: Number(selectedSquareData.row),
+						col: Number(selectedSquareData.col),
 						piece: null,
 						color: selectedSquareData.color
 					};
+
 					// need a better way to handle the nulls as it gets strigified on the object somewhere and this is gross
 					if (selectedSquareData.type !== "null") {
 						startSquare.piece = {
@@ -73,8 +74,8 @@
 
 				const currentSquare = getPosition(
 					currentBoard,
-					Number(startSquare.row),
-					Number(startSquare.col)
+					startSquare.row,
+					startSquare.col
 				);
 
 				const currentValidMoves =
@@ -83,6 +84,7 @@
 						currentBoard,
 						currentSquare
 					);
+
 				if (currentValidMoves) {
 					wrapper.innerHTML = "";
 					moveInput.value = "";
@@ -98,8 +100,8 @@
 				if (clicks === 2 && startSquare) {
 					clicks += 1;
 					destinationSquare = {
-						row: selectedSquareData.row,
-						col: selectedSquareData.col,
+						row: Number(selectedSquareData.row),
+						col: Number(selectedSquareData.col),
 						piece: null,
 						color: selectedSquareData.color
 					};
@@ -144,11 +146,11 @@
 						return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a ${currentSquare.piece.type}!</div>`);
 					}
 
-					if (
-						startSquare.piece.type === "king" &&
-						(destinationSquare.col === startSquare.col - 2 ||
-							destinationSquare.col === startSquare.col + 2)
-					) {
+					const isCastleMove =
+						destinationSquare.col === startSquare.col - 2 ||
+						destinationSquare.col === startSquare.col + 2;
+
+					if (startSquare.piece.type === "king" && isCastleMove) {
 						// this could be more like an enum / moves data structure for queenside and non queenside castle rook co-ordinates
 						// as they are always the same.
 						let rookStartPosition;
@@ -162,16 +164,17 @@
 
 						// Castle Queen side
 						if (destinationSquare.col === startSquare.col - 2) {
-							rookStartPosition = [0, 0];
-							rookEndPosition = [0, 3];
+							rookStartPosition = [startSquare.row, 0];
+							rookEndPosition = [startSquare.row, 3];
 						}
 
 						// Castle other side
 						if (destinationSquare.col === startSquare.col + 2) {
-							rookStartPosition = [0, 7];
-							rookEndPosition = [0, 5];
+							rookStartPosition = [startSquare.row, 7];
+							rookEndPosition = [startSquare.row, 5];
 						}
-						rookMoveBoard = movePiece(
+
+						const rookMoveBoard = movePiece(
 							kingMoveBoard,
 							rookStartPosition,
 							rookEndPosition

@@ -201,3 +201,19 @@ En Passant:
 -   GitHub pages looks for your index.html by default. (So change chessboard.html to index.html)
 -   Can point the DNS to a personal domain
 -   If not using a personal domain the repo name is part of the URL (So remame the repo to chess game.)
+
+### Debugging
+
+Some unit tests for the move / validation logic require a full board to be setup this can make it hard to know if there is an error in the test board being passed in that could be giving the a false positive or negative.
+Quick way to double check the board for the test set up, copy and paste the board into `index.html` and `renderToHtml`.
+Once appended to the DOM you will have a quick visual reference to make sure your set up is correct
+
+```
+    const boardToRender = [
+        // Array of the 49 squares for the board goes here
+    ]
+    const test = renderToHtml(boardToRender);
+    wrapper.appendChild(test);
+```
+
+Another option would be to add a `render()` that can work with a 'sparce' board. I.e. rather than needed to setup a 49 square board / data structure have a structure that only represents the populated squares and a render function that can 'fill in the gaps'.

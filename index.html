@@ -146,7 +146,7 @@
 						return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a ${currentSquare.piece.type}!</div>`);
 					}
 
-					// IF the start piece is a king and the destination piece is 2 squares away from the king, 
+					// IF the start piece is a king and the destination piece is 2 squares away from the king,
 					// then do the castle move (two steps)
 
 					if (
@@ -177,12 +177,10 @@
 			);
 			const moveInput = document.getElementsByName("move-selected")[0];
 			const moveConsole = document.querySelector(".move-console");
-
 			const movePieceViaForm = event => {
 				event.preventDefault();
 
 				const coordinates = moveInput.value.split("").map(Number);
-				console.log(coordinates);
 				const startPosition = coordinates.slice(0, 2);
 				const endPosition = coordinates.slice(2, 4);
 				const currentBoard = history[history.length - 1];

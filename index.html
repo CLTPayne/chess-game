@@ -27,8 +27,6 @@
 				renderPotentialMovesToHtml
 			} from "./lib/chessboard.js";
 			import { rookValidMoves } from "./lib/rook.js";
-			import { bishopValidMoves } from "./lib/bishop.js";
-			import { queenValidMoves } from "./lib/queen.js";
 
 			const wrapper = document.querySelector("[data-component=wrapper]");
 
@@ -146,8 +144,48 @@
 						return (moveConsole.innerHTML += `<div class="error">Error: ${startPosition} -> ${endPosition} is not a valid move for a ${currentSquare.piece.type}!</div>`);
 					}
 
-					// IF the start piece is a king and the destination piece is 2 squares away from the king,
-					// then do the castle move (two steps)
+					if (
+						startSquare.piece.type === "king" &&
+						(destinationSquare.col === startSquare.col - 2 ||
+							destinationSquare.col === startSquare.col + 2)
+					) {
+						// this could be more like an enum / moves data structure for queenside and non queenside castle rook co-ordinates
+						// as they are always the same.
+						let rookStartPosition;
+						let rookEndPosition;
+
+						const kingMoveBoard = movePiece(
+							currentBoard,
+							startPosition,
+							endPosition
+						);
+
+						// Castle Queen side
+						if (destinationSquare.col === startSquare.col - 2) {
+							rookStartPosition = [0, 0];
+							rookEndPosition = [0, 3];
+						}
+
+						// Castle other side
+						if (destinationSquare.col === startSquare.col + 2) {
+							rookStartPosition = [0, 7];
+							rookEndPosition = [0, 5];
+						}
+						rookMoveBoard = movePiece(
+							kingMoveBoard,
+							rookStartPosition,
+							rookEndPosition
+						);
+
+						history.push(rookMoveBoard);
+						wrapper.innerHTML = "";
+						moveInput.value = "";
+						const newTable = renderToHtml(rookMoveBoard);
+						wrapper.appendChild(newTable);
+						wrapper.appendChild(moveForm);
+						resetMove();
+						return (moveConsole.innerHTML += `<div class="success">Successful castling move: [${startPosition}, ${endPosition}] with rook jumping to [${rookEndPosition}]</div>`);
+					}
 
 					if (
 						!currentValidMoves ||

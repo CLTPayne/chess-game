@@ -156,8 +156,8 @@ Castling:
    if one of them is still in start position continue - done
 3. Check that the squares between the king and any not moved rook are empty - done
 4. Check the empty squares AND the king's current position are not in check - done
-5. If all fine, king moves two squares towards the rook across the row.
-6. And the rook then moves into the square the king 'jumped over'
+5. If all fine, king moves two squares towards the rook across the row - done, I think, not validated...
+6. And the rook then moves into the square the king 'jumped over' - done, I think, not validated...
 
 Integration Testing - how to get the board in position for a castle.
 Render for test function? See the highlights what happens after a move?
@@ -217,3 +217,9 @@ Once appended to the DOM you will have a quick visual reference to make sure you
 ```
 
 Another option would be to add a `render()` that can work with a 'sparce' board. I.e. rather than needed to setup a 49 square board / data structure have a structure that only represents the populated squares and a render function that can 'fill in the gaps'.
+
+### Questions
+
+-   Can I make there be less reaching out of scope in the check for move in check filter callback in kingValidMoves? Looked at `thisArg` optional `filter` param but not sure.
+-   e2e tests... really hard to validate that a king can castle...
+-   Stringified nature of all the values in the `event.target.closest("td").dataset` used on line 47 of the `index.html`.

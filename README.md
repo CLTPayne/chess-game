@@ -155,7 +155,7 @@ Castling:
 2. Check that neither of the rooks has moved
    if one of them is still in start position continue - done
 3. Check that the squares between the king and any not moved rook are empty - done
-4. Check the empty squares AND the king's current position are not in check - done but test setup not right???
+4. Check the empty squares AND the king's current position are not in check - done
 5. If all fine, king moves two squares towards the rook across the row.
 6. And the rook then moves into the square the king 'jumped over'
 

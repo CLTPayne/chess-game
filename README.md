@@ -156,8 +156,8 @@ Castling:
    if one of them is still in start position continue - done
 3. Check that the squares between the king and any not moved rook are empty - done
 4. Check the empty squares AND the king's current position are not in check - done
-5. If all fine, king moves two squares towards the rook across the row - done, I think, not validated...
-6. And the rook then moves into the square the king 'jumped over' - done, I think, not validated...
+5. If all fine, king moves two squares towards the rook across the row - done
+6. And the rook then moves into the square the king 'jumped over' - done
 
 Integration Testing - how to get the board in position for a castle.
 Render for test function? See the highlights what happens after a move?

@@ -19,8 +19,6 @@ The codebase for this game has been used to explore cyclomatic complexity (and E
     -   movePiece would be extended to also update this second array with the piece now taken.
     -   UI for player to choose what they want to promote the pawn to
 
--   Include rook logic for 'castling' - the rook and king participate in a special move called castling.
-
 -   Know which player is which / who's turn it is
 
 ### Other Ideas:
@@ -194,6 +192,18 @@ En Passant:
 
 1. Create Game object
 2. movePiece is responsible calling what ever function
+
+Potential Game Oject
+
+```
+const game = {
+    history: [] // array of all boards rendered (after pieces moved)
+    whitePiecesTaken: [] // array of all white pieces removed by other player move
+    blackPiecesTaken: [] // array of all black pieces removed by other player move
+    currentPlayer: null // set to white or black
+    lastMove: {} // object with reference to playerColor, typeOfPieceMoved, numberOfSquaresMoved
+}
+```
 
 ### GitHub Pages
 

@@ -30,8 +30,12 @@
 
 			const wrapper = document.querySelector("[data-component=wrapper]");
 
+			// const game = generateChessBame();
+			// history is inside the game
 			const history = [];
 			const startingBoard = generateChessBoard();
+			// game.history.push(startingBoard)
+			// update anywhere else that references history...
 			history.push(startingBoard);
 			const table = renderToHtml(startingBoard);
 			wrapper.appendChild(table);
@@ -41,6 +45,7 @@
 			let destinationSquare;
 			let clicks = 0;
 			const moveViaClick = event => {
+				// const currentBoard = game.history[game.history.length -1];
 				const currentBoard = history[history.length - 1];
 
 				clicks += 1;
@@ -78,6 +83,10 @@
 					startSquare.col
 				);
 
+				// pawn moves would need to be passed game.lastMove
+				// the other functions will ignore the additional parameter
+				// the pawn enpassant logic will have to handle there being no last move
+				// ie. if game.lastMove.from === undefined { return }
 				const currentValidMoves =
 					moves[currentSquare.piece.type] &&
 					moves[currentSquare.piece.type](

@@ -192,6 +192,11 @@ En Passant:
 
 1. Create Game object
 2. movePiece is responsible calling what ever function
+3. Can tell if an en passant is a valid move by seeing if:
+    - last move piece === pawn
+    - last move from row === +/- 2 last move to row
+    - that pawn is +/- 1 col from current pawn
+4. Calculated as part of the pawn move validation steps
 
 Potential Game Oject
 
@@ -200,8 +205,21 @@ const game = {
     history: [] // array of all boards rendered (after pieces moved)
     whitePiecesTaken: [] // array of all white pieces removed by other player move
     blackPiecesTaken: [] // array of all black pieces removed by other player move
-    currentPlayer: null // set to white or black
-    lastMove: {} // object with reference to playerColor, typeOfPieceMoved, numberOfSquaresMoved
+    currentPlayer: null // set to white or black? Is it useful and does it need to be in the game object?
+    lastMove: {
+        from: {
+            row: 1,
+            col: 0,
+            piece: { color: "black", hasMoved: false, type: "pawn" },
+            color: "black"
+        },
+        to: {
+            row: 1,
+            col: 0,
+            piece: { color: "black", hasMoved: true, type: "pawn" },
+            color: "black"
+        }
+    } // object with reference to playerColor, typeOfPieceMoved, numberOfSquaresMoved
 }
 ```
 

@@ -223,6 +223,16 @@ const game = {
 }
 ```
 
+Promotion:
+
+-   The choice of new piece is not limited to pieces previously captured, thus promotion can result in a player owning, for example, two or more queens despite starting the game with one.
+-   Add check to the pawn that sees if the move to is in the other player's first rank, if yes, before the other player makes a move, you can choose any piece to promote the pawn to.
+-   https://en.wikipedia.org/wiki/Promotion_(chess)
+
+UI:
+
+-   Render the black and white pieces captured by checking the game object
+
 ### GitHub Pages
 
 -   GitHub pages use https://jekyllrb.com/ under the hoood.

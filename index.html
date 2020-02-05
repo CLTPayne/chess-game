@@ -18,6 +18,7 @@
 		</div>
 		<script type="module">
 			import {
+				generateChessGame,
 				generateChessBoard,
 				renderToHtml,
 				movePiece,
@@ -30,13 +31,9 @@
 
 			const wrapper = document.querySelector("[data-component=wrapper]");
 
-			// const game = generateChessBame();
-			// history is inside the game
-			const history = [];
+			const game = generateChessGame();
 			const startingBoard = generateChessBoard();
-			// game.history.push(startingBoard)
-			// update anywhere else that references history...
-			history.push(startingBoard);
+			game.history.push(startingBoard);
 			const table = renderToHtml(startingBoard);
 			wrapper.appendChild(table);
 
@@ -45,8 +42,7 @@
 			let destinationSquare;
 			let clicks = 0;
 			const moveViaClick = event => {
-				// const currentBoard = game.history[game.history.length -1];
-				const currentBoard = history[history.length - 1];
+				const currentBoard = game.history[game.history.length - 1];
 
 				clicks += 1;
 				const selectedSquareData = event.target.closest("td").dataset;
@@ -189,7 +185,7 @@
 							rookEndPosition
 						);
 
-						history.push(rookMoveBoard);
+						game.history.push(rookMoveBoard);
 						wrapper.innerHTML = "";
 						moveInput.value = "";
 						const newTable = renderToHtml(rookMoveBoard);
@@ -208,7 +204,7 @@
 							startPosition,
 							endPosition
 						);
-						history.push(newBoard);
+						game.history.push(newBoard);
 						wrapper.innerHTML = "";
 						moveInput.value = "";
 						const newTable = renderToHtml(newBoard);
@@ -233,7 +229,7 @@
 				const coordinates = moveInput.value.split("").map(Number);
 				const startPosition = coordinates.slice(0, 2);
 				const endPosition = coordinates.slice(2, 4);
-				const currentBoard = history[history.length - 1];
+				const currentBoard = game.history[game.history.length - 1];
 
 				// try / catch to try the validation and catch an error object, use the error.message to populate the div
 				// this makes validateMove == assertion func
@@ -277,7 +273,7 @@
 						startPosition,
 						endPosition
 					);
-					history.push(newBoard);
+					game.history.push(newBoard);
 					wrapper.innerHTML = "";
 					moveInput.value = "";
 					const newTable = renderToHtml(newBoard);

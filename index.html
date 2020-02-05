@@ -161,7 +161,7 @@
 						let rookStartPosition;
 						let rookEndPosition;
 
-						const kingMoveBoard = movePiece(
+						const { newBoard: kingMoveBoard } = movePiece(
 							currentBoard,
 							startPosition,
 							endPosition
@@ -179,7 +179,7 @@
 							rookEndPosition = [startSquare.row, 5];
 						}
 
-						const rookMoveBoard = movePiece(
+						const { newBoard: rookMoveBoard } = movePiece(
 							kingMoveBoard,
 							rookStartPosition,
 							rookEndPosition
@@ -199,12 +199,16 @@
 						!currentValidMoves ||
 						currentValidMoves.includes(destinationPosition)
 					) {
-						const newBoard = movePiece(
+						const { newBoard, movedFrom, movedTo } = movePiece(
 							currentBoard,
 							startPosition,
 							endPosition
 						);
+
 						game.history.push(newBoard);
+						game.lastMove.from = movedFrom;
+						game.lastMove.to = movedTo;
+
 						wrapper.innerHTML = "";
 						moveInput.value = "";
 						const newTable = renderToHtml(newBoard);
@@ -268,12 +272,14 @@
 						)
 					)
 				) {
-					const newBoard = movePiece(
+					const { newBoard, movedFrom, movedTo } = movePiece(
 						currentBoard,
 						startPosition,
 						endPosition
 					);
 					game.history.push(newBoard);
+					game.lastMove.from = movedFrom;
+					game.lastMove.to = movedTo;
 					wrapper.innerHTML = "";
 					moveInput.value = "";
 					const newTable = renderToHtml(newBoard);

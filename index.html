@@ -200,8 +200,8 @@
 					// Piece is moving to the side but not directly capturing a piece
 					const isEnPassantMove =
 						(!destinationSquare.piece &&
-							destinationSquare.col === startSquare.col - 1) ||
-						destinationSquare.col === startSquare.col + 1;
+							(destinationSquare.col === startSquare.col - 1 ||
+						destinationSquare.col === startSquare.col + 1));
 
 					if (startSquare.piece.type === "pawn" && isEnPassantMove) {
 						const { newBoard, movedFrom, movedTo } = movePiece(

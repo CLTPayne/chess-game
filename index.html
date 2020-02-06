@@ -24,6 +24,7 @@
 				movePiece,
 				validateMove,
 				getPosition,
+				capturePiece,
 				moves,
 				renderPotentialMovesToHtml
 			} from "./lib/chessboard.js";
@@ -87,7 +88,8 @@
 					moves[currentSquare.piece.type] &&
 					moves[currentSquare.piece.type](
 						currentBoard,
-						currentSquare
+						currentSquare,
+						game.lastMove
 					);
 
 				if (currentValidMoves) {
@@ -193,6 +195,45 @@
 						wrapper.appendChild(moveForm);
 						resetMove();
 						return (moveConsole.innerHTML += `<div class="success">Successful castling move: [${startPosition}, ${endPosition}] with rook jumping to [${rookEndPosition}]</div>`);
+					}
+
+					// Piece is moving to the side but not directly capturing a piece
+					const isEnPassantMove =
+						(!destinationSquare.piece &&
+							destinationSquare.col === startSquare.col - 1) ||
+						destinationSquare.col === startSquare.col + 1;
+
+					if (startSquare.piece.type === "pawn" && isEnPassantMove) {
+						const { newBoard, movedFrom, movedTo } = movePiece(
+							currentBoard,
+							startPosition,
+							endPosition
+						);
+
+						const playerColor = game.lastMove.to.piece.color;
+
+						const passedSquare = getPosition(
+							newBoard,
+							game.lastMove.to.row,
+							game.lastMove.to.col
+						);
+
+						const enPassantBoard = capturePiece(
+							newBoard,
+							passedSquare.row,
+							passedSquare.col
+						);
+
+						game.history.push(enPassantBoard);
+						game.lastMove.from = movedFrom;
+						game.lastMove.to = movedTo;
+						wrapper.innerHTML = "";
+						moveInput.value = "";
+						const newTable = renderToHtml(enPassantBoard);
+						wrapper.appendChild(newTable);
+						wrapper.appendChild(moveForm);
+						resetMove();
+						return (moveConsole.innerHTML += `<div class="success">Successful en passant move: [${startPosition}, ${endPosition}], capturing [${passedSquare.row}, ${passedSquare.col}]</div>`);
 					}
 
 					if (

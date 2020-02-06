@@ -6,12 +6,6 @@ The codebase for this game has been used to explore cyclomatic complexity (and E
 
 ### Next Steps:
 
--   Valid en passant capture by a pawn, on the move follow the opponent pawn's double-move
-
-    -   Could this be done by checking the previous state of the board, only when the pawn is on the opposite middle row, and there is an opponent pawn directly next to you on the same row.
-    -   En Passant is only triggered by a pawns first move being two squares.
-    -   What if ever piece also stored it's past position.
-
 -   Promotion for a pawn when reaches all the way to back line
 
     -   Change the board object so it's an object with a board property that is the array of squares
@@ -190,13 +184,13 @@ With the above two `console.log`s the output was alwasy that `startPosition.piec
 
 En Passant:
 
-1. Create Game object
-2. movePiece is responsible calling what ever function
+1. Create Game object - done in minimal form
+2. movePiece is responsible calling what ever function - not used movePiece
 3. Can tell if an en passant is a valid move by seeing if:
     - last move piece === pawn
     - last move from row === +/- 2 last move to row
     - that pawn is +/- 1 col from current pawn
-4. Calculated as part of the pawn move validation steps
+4. Calculated as part of the pawn move validation steps - done
 
 Potential Game Oject
 
@@ -222,6 +216,15 @@ const game = {
     } // object with reference to playerColor, typeOfPieceMoved, numberOfSquaresMoved
 }
 ```
+
+TODO:
+
+    -   review decision around movePiece updates and returning of object so as to not need to pass in game object
+    -   fix tests by updating as per the new movePiece return object / destructure the new board
+    -   unit test for en passant valid moves
+    -   refactor en passant valid move logic in pawn module
+    -   refactor `index.html` inplementation of castle and en passant moves
+    -   refactor / extend game object
 
 Promotion:
 

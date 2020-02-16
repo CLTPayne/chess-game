@@ -262,6 +262,4 @@ Another option would be to add a `render()` that can work with a 'sparce' board.
 
 ### Questions
 
--   Can I make there be less reaching out of scope in the check for move in check filter callback in kingValidMoves? Looked at `thisArg` optional `filter` param but not sure.
--   e2e tests... really hard to validate that a king can castle...
--   Stringified nature of all the values in the `event.target.closest("td").dataset` used on line 47 of the `index.html`.
+-   Still struggling with the bind for move in check filter callback in kingValidMoves? What is not working for me?

@@ -16,6 +16,17 @@
 			</form>
 			<div class="move-console"></div>
 		</div>
+		<label class="promote-piece" for="piece-select"
+			>Choose a piece to promote to:</label
+		>
+		<select class="promote-piece" name="pieces" id="piece-select">
+			<option value="">Please choose an option</option>
+			<option value="king">King</option>
+			<option value="queen">Queen</option>
+			<option value="bishop">Bishop</option>
+			<option value="knight">Knight</option>
+			<option value="rook">Rook</option>
+		</select>
 		<script type="module">
 			import {
 				generateChessGame,

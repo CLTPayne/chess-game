@@ -27,8 +27,12 @@ table {
 	border: 1px solid black;
 }
 
-.promote-piece {
+.promote-piece--hidden {
 	display: none;
+}
+
+.promote-piece--visible {
+	display: block;
 }
 
 .move-console {

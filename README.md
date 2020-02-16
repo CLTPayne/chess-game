@@ -263,3 +263,5 @@ Another option would be to add a `render()` that can work with a 'sparce' board.
 ### Questions
 
 -   Still struggling with the bind for move in check filter callback in kingValidMoves? What is not working for me?
+-   Why data-component attributes on html elements? Can't remember!
+-   Ways of distinguishing the right dom query element - want to change the style property on a select element

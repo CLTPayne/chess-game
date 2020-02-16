@@ -199,9 +199,9 @@
 
 					// Piece is moving to the side but not directly capturing a piece
 					const isEnPassantMove =
-						(!destinationSquare.piece &&
-							(destinationSquare.col === startSquare.col - 1 ||
-						destinationSquare.col === startSquare.col + 1));
+						!destinationSquare.piece &&
+						(destinationSquare.col === startSquare.col - 1 ||
+							destinationSquare.col === startSquare.col + 1);
 
 					if (startSquare.piece.type === "pawn" && isEnPassantMove) {
 						const { newBoard, movedFrom, movedTo } = movePiece(
@@ -234,6 +234,23 @@
 						wrapper.appendChild(moveForm);
 						resetMove();
 						return (moveConsole.innerHTML += `<div class="success">Successful en passant move: [${startPosition}, ${endPosition}], capturing [${passedSquare.row}, ${passedSquare.col}]</div>`);
+					}
+
+					const isPomotionMove =
+						destinationSquare.row === 0 ||
+						destinationSquare.row === 7;
+
+					if (startSquare.piece.type === "pawn" && isPromotionMove) {
+						// 1. trigger select element being visible by changing css to not being display none
+						// 2. On click function to respond to which piece type they pick
+						// 3. Generate new board
+						// const { newBoard, movedFrom, movedTo } = movePiece(
+						// 	currentBoard,
+						// 	startPosition,
+						// 	endPosition
+						// );
+						// 4. Change piece.type in newBoard with a promotePiece() trying not to mutate the piece
+						// Render the board and hide the select menu again
 					}
 
 					if (

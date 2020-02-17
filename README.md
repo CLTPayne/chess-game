@@ -265,3 +265,19 @@ Another option would be to add a `render()` that can work with a 'sparce' board.
 -   Still struggling with the bind for move in check filter callback in kingValidMoves? What is not working for me?
 -   Why data-component attributes on html elements? Can't remember!
 -   Ways of distinguishing the right dom query element - want to change the style property on a select element
+
+
+- Generally avoid selecting elements by getElementsByClassName
+- Can use `js-example` - signifier to the developer that this className is just javascript and not use them for styling
+
+- getElementById - id is unique so you're essentially limiting the css
+- id used for anchors in the page 
+- used linking labels with the elements they are labelling 
+
+- querySelector - can get classes, ids, any valid CSS selector string
+- returns a single HTML element
+
+- querySelectorAll - returns a node list which is not actually an array, so you can't array methods 
+- The node list is array like so you can turn it into an array (spread) and then call array methods on the new array
+
+There is nothing that you can do in getByClassName that you can't do 

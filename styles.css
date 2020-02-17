@@ -31,10 +31,6 @@ table {
 	display: none;
 }
 
-.promote-piece--visible {
-	display: block;
-}
-
 .move-console {
 	border: solid grey 1px;
 	padding: 20px;

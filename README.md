@@ -263,21 +263,56 @@ Another option would be to add a `render()` that can work with a 'sparce' board.
 ### Questions
 
 -   Still struggling with the bind for move in check filter callback in kingValidMoves? What is not working for me?
--   Why data-component attributes on html elements? Can't remember!
--   Ways of distinguishing the right dom query element - want to change the style property on a select element
 
+### Querying the DOM:
 
-- Generally avoid selecting elements by getElementsByClassName
-- Can use `js-example` - signifier to the developer that this className is just javascript and not use them for styling
+-   Generally avoid selecting elements by getElementsByClassName
+-   Can use `js-example` - signifier to the developer that this className is just javascript and not use them for styling
 
-- getElementById - id is unique so you're essentially limiting the css
-- id used for anchors in the page 
-- used linking labels with the elements they are labelling 
+-   getElementById - id is unique so you're essentially limiting the css
+-   id used for anchors in the page
+-   used linking labels with the elements they are labelling
 
-- querySelector - can get classes, ids, any valid CSS selector string
-- returns a single HTML element
+-   querySelector - can get classes, ids, any valid CSS selector string
+-   returns a single HTML element
 
-- querySelectorAll - returns a node list which is not actually an array, so you can't array methods 
-- The node list is array like so you can turn it into an array (spread) and then call array methods on the new array
+-   querySelectorAll - returns a node list which is not actually an array, so you can't array methods
+-   The node list is array like so you can turn it into an array (spread) and then call array methods on the new array
 
-There is nothing that you can do in getByClassName that you can't do 
+There is nothing that you can do in getByClassName that you can't do
+
+### Frontend Q & A
+
+When to use anchor tag vs button - when to use each
+
+-   Use the button should be preferable to aria-role=button
+-   Link will still be clickable if the javascript hasn’t loaded so it won’t perform the action the user thinks they are requesting. \* Links / anchor tags that are for tabs can have a #to-another-part of the page
+
+When to use h1, h2, vs using lots of p tags
+
+-   In theory the document outline SHOULD permit you have an h1 etc per every section element on the page. However these are not implemented per browser or assisted tech is not consistent so you can’t rely on it
+-   Your home page could have the site name as an h1 and then on other pages you could have it as a anchor tag
+-   Better to have incorrectly nested headings than it is to just have
+-   Use assisted tech to read out the page
+-   https://dequeuniversity.com/screenreaders/voiceover-keyboard-shortcuts
+-   View the document outline as understand an example of the document outline - headings map
+-   Potentially you want a heading for each core section / chunk that you might read through
+-   P tags will read like straight prose - then add in the headings
+
+When to use rem, em, px
+
+-   Em - used less these days since the bringing in of rems - use case could be subtext or super text that you want to pin to the element that it’s subbing / supering over.
+-   Rem will scale when you increment the browser font size.
+-   Generally the ft uses pixels
+-   Default zooming behaviour of all major browser is to zoom the whole ui not the font. You have to manually set the zoom to do text only. \* Focus on consistency.
+
+How to order css properties in your style sheets
+
+-   1 / layout - margin padding display position etc
+-   2 / font - color, size weight, line height
+-   3 / background & borders
+
+Bem - is it bad to use 2 out of the three in a selector? e.g. highlight--small / highlight--large
+
+-   Map bem ‘block’ the component
+-   O-stepped-progress - look at the source origami code — one block and one element and one modifier but also fine to have 2 of these. If you have two modifiers then you can have a two classnames - o-banner—small o-banner—long.

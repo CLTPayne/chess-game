@@ -229,8 +229,8 @@ Promotion:
 -   The choice of new piece is not limited to pieces previously captured, thus promotion can result in a player owning, for example, two or more queens despite starting the game with one.
 -   Add check to the pawn that sees if the move to is in the other player's first rank, if yes, before the other player makes a move, you can choose any piece to promote the pawn to. - If pawn is in opposite first rank, display block on the select input - Done
 -   https://en.wikipedia.org/wiki/Promotion_(chess)
--   Select element with a list of the pieces - this is display none by default.
--   Hook up the onclick logic for a) when the pawn hits the opposite end b) onchange event (a click event will open the menu by mouse or tab)
+-   Select element with a list of the pieces - this is display none by default. - Done
+-   Hook up the onclick logic for a) when the pawn hits the opposite end b) onchange event (a click event will open the menu by mouse or tab) - Done
 -   Extension would be to update to a modal - button for each piece image and an overlay behind to obscure users from clicking on the board.
 
 UI:

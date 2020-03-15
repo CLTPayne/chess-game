@@ -17,9 +17,9 @@
 			<div class="move-console"></div>
 		</div>
 		<div data-component="promote-form" class="promote-piece--hidden">
-			<label for="piece-select">Choose a piece to promote to:</label>
+			<label for="piece-select">Choose a piece to promote:</label>
 			<select name="pieces" id="piece-select" required>
-				<!-- <option value="">Please choose an option</option> -->
+				<option value="king">Select piece</option>
 				<option value="king">King</option>
 				<option value="queen">Queen</option>
 				<option value="bishop">Bishop</option>
@@ -253,20 +253,44 @@
 					const isPromotionMove =
 						destinationSquare.row === opponentFirstRank;
 
+					let selectedPieceToPromote;
+
 					if (startSquare.piece.type === "pawn" && isPromotionMove) {
 						const promoteForm = document.querySelector(
 							"[data-component=promote-form]"
 						);
 						promoteForm.classList.remove("promote-piece--hidden");
-						// 2. On click function to respond to which piece type they pick
-						// 3. Generate new board
-						// const { newBoard, movedFrom, movedTo } = movePiece(
-						// 	currentBoard,
-						// 	startPosition,
-						// 	endPosition
-						// );
-						// 4. Change piece.type in newBoard with a promotePiece() trying not to mutate the piece
-						// Render the board and hide the select menu again
+						promoteForm.addEventListener("change", event => {
+							selectedPieceToPromote = event.target.value;
+							const {
+								newBoard: promotionMoveBoard,
+								movedFrom,
+								movedTo
+							} = movePiece(
+								currentBoard,
+								startPosition,
+								endPosition
+							);
+							movedTo.piece.type = selectedPieceToPromote;
+							promotionMoveBoard.map(square => {
+								if (
+									square.row === moveTo.row &&
+									square.col === moveTo.col
+								) {
+									return (square.piece.type = selectedPieceToPromote);
+								}
+							});
+							game.history.push(promotionMoveBoard);
+							game.lastMove.from = movedFrom;
+							game.lastMove.to = movedTo;
+							wrapper.innerHTML = "";
+							moveInput.value = "";
+							const newTable = renderToHtml(promotionMoveBoard);
+							wrapper.appendChild(newTable);
+							wrapper.appendChild(moveForm);
+							resetMove();
+							return (moveConsole.innerHTML += `<div class="success">Successful promtion of a pawn to a ${selectedPieceToPromote}</div>`);
+						});
 					}
 
 					if (

@@ -18,6 +18,14 @@
 				How to play Chess
 			</a>
 		</header>
+		<div class="banner" data-component="banner">
+			<p class="instructions">
+				Play with friend on the same screen, taking it in turns to move
+			</p>
+			<button data-component="banner__dismiss" class="dismiss">
+				OK
+			</button>
+		</div>
 		<main class="wrapper" data-component="wrapper"></main>
 		<div data-component="controls">
 			<form data-component="move-form">
@@ -59,6 +67,17 @@
 				renderPotentialMovesToHtml,
 			} from "./lib/chessboard.js";
 			import { rookValidMoves } from "./lib/rook.js";
+
+			const dismissInstructions = () => {
+				const instructions = document.querySelector(
+					"[data-component=banner]"
+				);
+				instructions.classList.add("hidden");
+			};
+			const dismissBanner = document.querySelector(
+				"[data-component=banner__dismiss]"
+			);
+			dismissBanner.addEventListener("click", dismissInstructions);
 
 			const wrapper = document.querySelector("[data-component=wrapper]");
 

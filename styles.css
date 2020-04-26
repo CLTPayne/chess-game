@@ -103,3 +103,15 @@ form {
 	/* Use click and play so form input is out of date */
 	display: none;
 }
+
+.hidden {
+	display: none !important;
+}
+
+.banner {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 42px;
+	margin-bottom: 24px;
+	background-color: lightgrey;
+}

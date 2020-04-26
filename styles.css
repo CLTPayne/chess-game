@@ -1,14 +1,42 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 24px 42px;
+	margin-bottom: 24px;
+	background: black;
+	color: white;
+	font-size: 24px;
+}
+
+.header__logo {
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.wrapper {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-bottom: 24px;
+}
+
 td {
 	padding: 0;
-	width: 25px;
-	height: 25px;
-	font-size: 18px;
-	line-height: 25px;
+	width: 1.8em;
+	height: 1.8em;
+	font-size: 1.8em;
+	line-height: 1.8em;
 }
 
 /* override default display inline */
 img {
-	height: 25px;
+	height: 1.8em;
 	filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
 	display: block;
 }
@@ -32,8 +60,9 @@ table {
 }
 
 .move-console {
-	border: solid grey 1px;
-	padding: 20px;
+	padding: 24px;
+	margin: 0 42px 24px;
+	border: solid grey 2px;
 }
 
 .success {
@@ -58,4 +87,19 @@ table {
 
 .white-piece-to-move {
 	background-color: rgba(133, 199, 126, 0.6);
+}
+
+footer {
+	padding: 24px 42px;
+	background: black;
+	color: white;
+}
+
+a {
+	color: white;
+}
+
+form {
+	/* Use click and play so form input is out of date */
+	display: none;
 }

@@ -8,7 +8,17 @@
 	</head>
 
 	<body>
-		<div data-component="wrapper"></div>
+		<header>
+			<h1 class="header__logo">Pass and Play</h1>
+			<a
+				href="https://www.wikihow.com/Play-Chess"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				How to play Chess
+			</a>
+		</header>
+		<main class="wrapper" data-component="wrapper"></main>
 		<div data-component="controls">
 			<form data-component="move-form">
 				<input name="move-selected" type="text" />
@@ -27,6 +37,15 @@
 				<option value="rook">Rook</option>
 			</select>
 		</div>
+		<footer>
+			See the full project on
+			<a
+				href="https://github.com/CLTPayne/chess-game"
+				target="_blank"
+				rel="noopener noreferrer"
+				>Github</a
+			>
+		</footer>
 		<script type="module">
 			import {
 				generateChessGame,
@@ -37,7 +56,7 @@
 				getPosition,
 				capturePiece,
 				moves,
-				renderPotentialMovesToHtml
+				renderPotentialMovesToHtml,
 			} from "./lib/chessboard.js";
 			import { rookValidMoves } from "./lib/rook.js";
 
@@ -53,7 +72,7 @@
 			let startSquare;
 			let destinationSquare;
 			let clicks = 0;
-			const moveViaClick = event => {
+			const moveViaClick = (event) => {
 				const currentBoard = game.history[game.history.length - 1];
 
 				clicks += 1;
@@ -70,14 +89,14 @@
 						row: Number(selectedSquareData.row),
 						col: Number(selectedSquareData.col),
 						piece: null,
-						color: selectedSquareData.color
+						color: selectedSquareData.color,
 					};
 
 					// need a better way to handle the nulls as it gets strigified on the object somewhere and this is gross
 					if (selectedSquareData.type !== "null") {
 						startSquare.piece = {
 							type: selectedSquareData.type,
-							color: selectedSquareData.pieceColor
+							color: selectedSquareData.pieceColor,
 						};
 					} else if (selectedSquareData.type === "null") {
 						resetMove();
@@ -121,12 +140,12 @@
 						row: Number(selectedSquareData.row),
 						col: Number(selectedSquareData.col),
 						piece: null,
-						color: selectedSquareData.color
+						color: selectedSquareData.color,
 					};
 					if (selectedSquareData.type !== "null") {
 						destinationSquare.piece = {
 							type: selectedSquareData.type,
-							color: selectedSquareData.pieceColor
+							color: selectedSquareData.pieceColor,
 						};
 					}
 
@@ -135,7 +154,7 @@
 						startSquare.row,
 						startSquare.col,
 						destinationSquare.row,
-						destinationSquare.col
+						destinationSquare.col,
 					].map(Number);
 
 					const startPosition = coordinates.slice(0, 2);
@@ -260,19 +279,19 @@
 							"[data-component=promote-form]"
 						);
 						promoteForm.classList.remove("promote-piece--hidden");
-						promoteForm.addEventListener("change", event => {
+						promoteForm.addEventListener("change", (event) => {
 							selectedPieceToPromote = event.target.value;
 							const {
 								newBoard: promotionMoveBoard,
 								movedFrom,
-								movedTo
+								movedTo,
 							} = movePiece(
 								currentBoard,
 								startPosition,
 								endPosition
 							);
 							movedTo.piece.type = selectedPieceToPromote;
-							promotionMoveBoard.map(square => {
+							promotionMoveBoard.map((square) => {
 								if (
 									square.row === moveTo.row &&
 									square.col === moveTo.col
@@ -325,7 +344,7 @@
 			);
 			const moveInput = document.getElementsByName("move-selected")[0];
 			const moveConsole = document.querySelector(".move-console");
-			const movePieceViaForm = event => {
+			const movePieceViaForm = (event) => {
 				event.preventDefault();
 
 				const coordinates = moveInput.value.split("").map(Number);

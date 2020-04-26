@@ -314,3 +314,13 @@ Bem - is it bad to use 2 out of the three in a selector? e.g. highlight--small /
 
 -   Map bem ‘block’ the component
 -   O-stepped-progress - look at the source origami code — one block and one element and one modifier but also fine to have 2 of these. If you have two modifiers then you can have a two classnames - o-banner—small o-banner—long.
+
+### UI Strategy:
+
+1. Page Layout:
+
+-   Larger board
+-   More obvious focus on the board - div with max-width so responsive
+-   Closeable message - “play with friend on the same screen, taking it in turns to play a move”
+-   Linking to rules of chess - in the header / nav bar
+-   Footer with link to the repo, copyright, info about the process of building the game.
